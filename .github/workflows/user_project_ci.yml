@@ -283,6 +283,17 @@ jobs:
           if ! [[ $cnt ]]; then cnt=0; fi
           if [[ $cnt -eq 1 ]]; then exit 0; fi
           exit 2
+      - name: Compress verification logs
+        if: failure()
+        run: tar -cf $GITHUB_WORKSPACE/sim.tar -C $GITHUB_WORKSPACE/verilog/dv/cocotb/sim .
+
+      - name: upload sim logs
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: simulation-logs
+          path: |
+            $GITHUB_WORKSPACE/sim.tar
 
   precheck:
     timeout-minutes: 720
