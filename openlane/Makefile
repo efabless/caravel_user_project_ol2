@@ -94,8 +94,7 @@ endif
 	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/resolved.json $(PROJECT_ROOT)/signoff/$*/
 	@mkdir -p $(PROJECT_ROOT)/signoff/$*/openlane-signoff/timing-reports
 	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*magic-drc/reports/* $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*netgen-lvs/lvs.rpt $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*netgen-lvs/lvs.rpt $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*netgen-lvs/reports/lvs.netgen.rpt $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
 	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*netgen-lvs/netgen-lvs.log $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
 	@cp -r $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*openroad-stapostpnr/summary.rpt $(PROJECT_ROOT)/signoff/$*/openlane-signoff/timing-reports
 # https://github.com/koalaman/shellcheck/wiki/SC2044
