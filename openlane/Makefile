@@ -37,7 +37,7 @@ openlane_args = \
 	--manual-pdk \
 	--pdk-root $(PDK_ROOT) \
 	--pdk $(PDK) \
-	--log-level WARN \
+	--log-level WARNING \
 	$(PROJECT_ROOT)/openlane/$*/config.json
 
 docker_mounts = \
