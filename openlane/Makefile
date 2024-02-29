@@ -78,36 +78,36 @@ ifeq ($(OPENLANE2_USE_NIX),1)
 else
 	$(PROJECT_ROOT)/openlane2-venv/bin/python3 -m openlane $(docker_mounts) $(openlane_extra_args) --dockerized $(openlane_args) $(openlane_extra_args)
 endif
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/final/metrics.csv $(PROJECT_ROOT)/signoff/$*/
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/final/def/* $(PROJECT_ROOT)/def/$*.def
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/final/sdc/* $(PROJECT_ROOT)/sdc/$*.sdc
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/final/gds/* $(PROJECT_ROOT)/gds/$*.gds
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/final/lef/* $(PROJECT_ROOT)/lef/$*.lef
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/*magic-streamout/*.mag $(PROJECT_ROOT)/mag/$*.mag
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/final/pnl/* $(PROJECT_ROOT)/verilog/gl/$*.v
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/final/spice/* $(PROJECT_ROOT)/spi/lvs/$*.spice
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/final/spef/nom/* $(PROJECT_ROOT)/spef/multicorner/$*.nom.spef
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/final/spef/nom/* $(PROJECT_ROOT)/spef/$*.spef
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/final/spef/min/* $(PROJECT_ROOT)/spef/multicorner/$*.min.spef
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/final/spef/max/* $(PROJECT_ROOT)/spef/multicorner/$*.max.spef
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/final/lib/nom*tt*/* $(PROJECT_ROOT)/lib/$*.lib
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/resolved.json $(PROJECT_ROOT)/signoff/$*/
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/metrics.csv $(PROJECT_ROOT)/signoff/$*/
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/def/* $(PROJECT_ROOT)/def/$*.def
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/sdc/* $(PROJECT_ROOT)/sdc/$*.sdc
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/gds/* $(PROJECT_ROOT)/gds/$*.gds
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/lef/* $(PROJECT_ROOT)/lef/$*.lef
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*magic-streamout/*.mag $(PROJECT_ROOT)/mag/$*.mag
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/pnl/* $(PROJECT_ROOT)/verilog/gl/$*.v
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/spice/* $(PROJECT_ROOT)/spi/lvs/$*.spice
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/spef/nom/* $(PROJECT_ROOT)/spef/multicorner/$*.nom.spef
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/spef/nom/* $(PROJECT_ROOT)/spef/$*.spef
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/spef/min/* $(PROJECT_ROOT)/spef/multicorner/$*.min.spef
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/spef/max/* $(PROJECT_ROOT)/spef/multicorner/$*.max.spef
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/lib/nom*tt*/* $(PROJECT_ROOT)/lib/$*.lib
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/resolved.json $(PROJECT_ROOT)/signoff/$*/
 	@mkdir -p $(PROJECT_ROOT)/signoff/$*/openlane-signoff/timing-reports
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/*magic-drc/reports/* $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/*netgen-lvs/lvs.rpt $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/*netgen-lvs/lvs.rpt $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
-	@cp $(PROJECT_ROOT)/openlane/$*/runs/$*/*netgen-lvs/netgen-lvs.log $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
-	@cp -r $(PROJECT_ROOT)/openlane/$*/runs/$*/*openroad-stapostpnr/summary.rpt $(PROJECT_ROOT)/signoff/$*/openlane-signoff/timing-reports
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*magic-drc/reports/* $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*netgen-lvs/lvs.rpt $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*netgen-lvs/lvs.rpt $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
+	@cp $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*netgen-lvs/netgen-lvs.log $(PROJECT_ROOT)/signoff/$*/openlane-signoff/
+	@cp -r $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*openroad-stapostpnr/summary.rpt $(PROJECT_ROOT)/signoff/$*/openlane-signoff/timing-reports
 # https://github.com/koalaman/shellcheck/wiki/SC2044
 	@while IFS= read -r -d '' file ; \
 	do \
 		target_dir=$(PROJECT_ROOT)/signoff/$*/openlane-signoff/timing-reports/$$(basename $$(dirname $$file)); \
 		mkdir -p $$target_dir; \
 		cp $$file $$target_dir/; \
-	done < <(find $(PROJECT_ROOT)/openlane/$*/runs/$*/*openroad-stapostpnr/*/*.rpt -type 'f' -print0)
+	done < <(find $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/*openroad-stapostpnr/*/*.rpt -type 'f' -print0)
 	@while IFS= read -r -d '' file ; \
 	do \
 		target_dir=$(PROJECT_ROOT)/signoff/$*/sdf/$$(basename $$(dirname $$file)); \
 		mkdir -p $$target_dir; \
 		cp $$file $$target_dir/$*.sdf; \
-	done < <(find $(PROJECT_ROOT)/openlane/$*/runs/$*/final/sdf -type 'f' -print0)
+	done < <(find $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)/final/sdf -type 'f' -print0)
