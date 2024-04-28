@@ -8,11 +8,16 @@
     "CLOCK_PERIOD": 25,
     "CLOCK_PORT": "wb_clk_i",
     "CLOCK_NET": "counter.clk",
-    "DIE_AREA": "0 0 2800 1760",
+    "FP_SIZING": "absolute",
+    "DIE_AREA": [
+        0,
+        0,
+        2800,
+        1760
+    ],
     "FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
     "MAX_TRANSITION_CONSTRAINT": 1.0,
     "MAX_FANOUT_CONSTRAINT": 16,
-    "PL_TARGET_DENSITY_PCT": 55,
     "PL_RESIZER_SETUP_SLACK_MARGIN": 0.4,
     "GRT_RESIZER_SETUP_SLACK_MARGIN": 0.2,
     "GRT_RESIZER_HOLD_SLACK_MARGIN": 0.2,
@@ -20,11 +25,11 @@
     "CTS_CLK_MAX_WIRE_LENGTH": 500,
     "MAGIC_DEF_LABELS": false,
     "SYNTH_ABC_BUFFERING": false,
-    "RUN_HEURISTIC_DIODE_INSERTION": 1,
+    "RUN_HEURISTIC_DIODE_INSERTION": true,
     "HEURISTIC_ANTENNA_THRESHOLD": 110,
     "RUN_ANTENNA_REPAIR": true,
     "RUN_POST_GRT_DESIGN_REPAIR": true,
-	"RUN_POST_GRT_RESIZER_TIMING": true,
+    "RUN_POST_GRT_RESIZER_TIMING": true,
     "VDD_NETS": [
         "vccd1"
     ],

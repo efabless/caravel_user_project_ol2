@@ -21,7 +21,7 @@ export OPENLANE2_RUN_TAG = $(shell date '+%y_%m_%d_%H_%M')
 export CARAVEL_ROOT:=$(CARAVEL_ROOT)
 export PDK:=$(PDK)
 export PDK_ROOT:=$(PDK_ROOT)
-OPENLANE2_TAG ?= 2.0.0b16
+OPENLANE2_TAG ?= 2.0.3
 OPENLANE2_IMAGE_NAME ?= efabless/openlane:$(OPENLANE2_TAG)
 designs = $(shell cd $(PROJECT_ROOT)/openlane && find * -maxdepth 0 -type d)
 current_design = null
@@ -37,7 +37,7 @@ openlane_args = \
 	--manual-pdk \
 	--pdk-root $(PDK_ROOT) \
 	--pdk $(PDK) \
-	--log-level WARN \
+	--log-level WARNING \
 	$(PROJECT_ROOT)/openlane/$*/config.json
 
 docker_mounts = \
@@ -74,7 +74,7 @@ $(designs) : % : $(PROJECT_ROOT)/openlane/%/config.json
 	# $(current_design)
 	@rm -rf $(PROJECT_ROOT)/openlane/$*/runs/$(OPENLANE2_RUN_TAG)
 ifeq ($(OPENLANE2_USE_NIX),1)
-	nix-shell --pure --command "openlane $(openlane_args) $(openlane_extra_args)"
+	nix run github:efabless/openlane2/$(OPENLANE2_TAG) -- $(openlane_args) $(openlane_extra_args)
 else
 	$(PROJECT_ROOT)/openlane2-venv/bin/python3 -m openlane $(docker_mounts) $(openlane_extra_args) --dockerized $(openlane_args) $(openlane_extra_args)
 endif
